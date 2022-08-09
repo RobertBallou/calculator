@@ -117,6 +117,11 @@ document.getElementById('equals').onclick = () => {
     document.getElementById('display').textContent = operate(operator, lockedNum, (+number));
 }
 
+document.getElementById('decimal').onclick = () => {
+    document.getElementById('display').textContent += '.';
+    number += '.';
+}
+
 document.getElementById('b1').onclick = () => {
     document.getElementById('display').textContent += 1;
     number += '1';
