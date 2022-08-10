@@ -178,3 +178,54 @@ document.getElementById('clear').onclick = () => {
     number = '';
     operator = '';
 }
+
+window.addEventListener('keydown', (event) => {
+    let name = event.key;
+    let code = event.code;
+    console.log(`Key pressed ${name} \r\n Key code value: ${code}`);
+    if(code === 'Numpad1'){
+        document.getElementById('display').textContent += 1;
+        number += '1';
+    } else if(code === 'Numpad2'){
+        document.getElementById('display').textContent += 2;
+        number += '2';
+    } else if(code === 'Numpad3'){
+        document.getElementById('display').textContent += 3;
+        number += '3';
+    } else if(code === 'Numpad4'){
+        document.getElementById('display').textContent += 4;
+        number += '4';
+    } else if(code === 'Numpad5'){
+        document.getElementById('display').textContent += 5;
+        number += '5';
+    } else if(code === 'Numpad6'){
+        document.getElementById('display').textContent += 6;
+        number += '6';
+    } else if(code === 'Numpad7'){
+        document.getElementById('display').textContent += 7;
+        number += '7';
+    } else if(code === 'Numpad8'){
+        document.getElementById('display').textContent += 8;
+        number += '8';
+    } else if(code === 'Numpad9'){
+        document.getElementById('display').textContent += 9;
+        number += '9';
+    } else if(code === 'Numpad0'){
+        document.getElementById('display').textContent += 0;
+        number += '0';
+    } else if(code === 'NumpadEnter'){
+        document.getElementById('display').textContent = operate(operator, lockedNum, (+number));
+    } else if(code === 'NumpadAdd'){
+        document.getElementById('display').textContent += '+';
+        if(operator){
+            operate(operator, lockedNum, (+number));
+        }
+        operator = 'add';
+        if(!lockedNum){
+            lockedNum = (+number);
+            number = '';
+        }else if (lockedNum && number){
+            operate(operator, lockedNum, (+number));
+        }
+    } 
+  }, false);
