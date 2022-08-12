@@ -25,19 +25,31 @@ body {
     0 41.8px 33.4px rgba(0, 0, 0, 0.086),
     0 100px 80px rgba(0, 0, 0, 0.12)
     ;
+    touch-action: manipulation;
 }
 
 #display{
+    display: flex;
+    flex-direction: column;
     background-color: #A4B494;
     color: #382933;
     border-radius: 15px;
     display: flex;
     border: 2px #382933 solid;
     height: 20%;
-    justify-content: flex-end;
+    justify-content: center;
     font-size: xx-large;
     width: 92.5%;
     overflow: hidden;
+    align-items: flex-end;
+}
+#math {
+    padding-right: 5px;
+
+}
+
+#total {
+    padding-right: 5px;
 }
 
 #buttons{
@@ -51,6 +63,7 @@ body {
 button{
     border-radius: 15px;
     background-color: #519872;
+    color: #382933;
     border: 1px #382933 solid;
     font-size: larger;
 }
@@ -61,6 +74,7 @@ button:active{
 
 .not-done {
     background-color: #382933;
+    color: #A4B494;
     border: 1px red solid;
 }
 h1{
