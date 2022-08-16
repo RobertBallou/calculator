@@ -125,7 +125,11 @@ function operate(operator, x, y){
 const operatorButtons = document.querySelectorAll('.operator');
 operatorButtons.forEach((button) => {
     button.onclick = () => {
-        runOps(button.textContent, button.id);
+        if(mathP.textContent.slice(-1) === '+' || mathP.textContent.slice(-1) === '-' || mathP.textContent.slice(-1) === '÷' || mathP.textContent.slice(-1) === '×'){
+            return;
+        } else {
+            runOps(button.textContent, button.id);
+        }
     }
 });
 
@@ -147,18 +151,31 @@ document.getElementById('equals').onclick = () => {
 }
 
 document.getElementById('decimal').onclick = () => {
-    mathP.textContent += '.';
-    number += '.';
+    if (number.includes('.')){
+        return;
+    } else if (!number.includes('.')){
+        mathP.textContent += '.';
+        number += '.';
+    }
 }
 
 document.getElementById('clear').onclick = () => {
     reset();
 }
 
+document.getElementById('delete').onclick = () => {
+    if (number.length > 0){
+        number = number.slice(0, -1);
+        mathP.textContent = mathP.textContent.slice(0, -1);
+        totalP.textContent = operate(operator, lockedNum, (+number));
+    }
+}
+
 // Keyboard event listeners and functionality 
 window.addEventListener('keydown', (event) => {
     let name = event.key;
     let code = event.code;
+    console.log(event.key)
     if (event.key >= 0 && event.key <= 9){
         mathP.textContent += event.key;
         number += event.key;
@@ -168,14 +185,43 @@ window.addEventListener('keydown', (event) => {
         mathP.textContent = operate(operator, lockedNum, (+number));
         totalP.textContent = '';
     } else if (event.key === "+"){
-        runOps(event.key, 'add');
+        if(mathP.textContent.slice(-1) === '+' || mathP.textContent.slice(-1) === '-' || mathP.textContent.slice(-1) === '÷' || mathP.textContent.slice(-1) === '×'){
+            return;
+        } else {
+            runOps(event.key, 'add');
+        }
     } else if (event.key === '-'){
-        runOps(event.key, 'subtract');
+        if(mathP.textContent.slice(-1) === '+' || mathP.textContent.slice(-1) === '-' || mathP.textContent.slice(-1) === '÷' || mathP.textContent.slice(-1) === '×'){
+            return;
+        } else {
+            runOps(event.key, 'subtract');
+        }
     } else if (event.key === '*'){
-        runOps('×', 'multiply');
+        if(mathP.textContent.slice(-1) === '+' || mathP.textContent.slice(-1) === '-' || mathP.textContent.slice(-1) === '÷' || mathP.textContent.slice(-1) === '×'){
+            return;
+        } else {
+            runOps('×', 'multiply');
+        }
     } else if (event.key ==='/'){
-        runOps('÷', 'divide');
+        if(mathP.textContent.slice(-1) === '+' || mathP.textContent.slice(-1) === '-' || mathP.textContent.slice(-1) === '÷' || mathP.textContent.slice(-1) === '×'){
+            return;
+        } else {
+            runOps('÷', 'divide');
+        }
     } else if (event.key === 'c'){
         reset();
+    } else if (event.key === '.'){
+        if (number.includes('.')){
+            return;
+        } else if (!number.includes('.')){
+            mathP.textContent += '.';
+            number += '.';
+        }
+    } else if (event.key === 'Backspace'){
+        if (number.length > 0){
+            number = number.slice(0, -1);
+            mathP.textContent = mathP.textContent.slice(0, -1);
+            totalP.textContent = operate(operator, lockedNum, (+number));
+        }
     }
 }, false);
