@@ -216,6 +216,24 @@ document.getElementById('delete').onclick = () => {
     }
 }
 
+document.getElementById('positive-or-negative').onclick = () => {
+    if (number.includes('-')){
+        mathP.textContent = mathP.textContent.slice(0, -number.length);
+        number = number.substring(1);
+        mathP.textContent += number;
+        totalP.textContent = operate(operator, lockedNum, (+number));
+    } else if (!number.includes('-')){
+        if(number > 0){
+            mathP.textContent = mathP.textContent.slice(0, -number.length);
+        }
+        number = '-' + number;
+        mathP.textContent += number;
+        if (number.length > 1){
+            totalP.textContent = operate(operator, lockedNum, (+number));
+        }
+    }
+}
+
 // Keyboard event listeners and functionality 
 window.addEventListener('keydown', (event) => {
     let name = event.key;
@@ -302,6 +320,29 @@ window.addEventListener('keydown', (event) => {
             number = number.slice(0, -1);
             mathP.textContent = mathP.textContent.slice(0, -1);
             totalP.textContent = operate(operator, lockedNum, (+number));
+        }
+
+        //If the number is only a negative sign and nothing else. The total calculation will just display the locked number.
+        //which should be any  previous calculation anyway.
+        if (number === '-'){
+            totalP.textContent = lockedNum;
+        }
+    //working on the negative to positive / positive to negative button.
+    } else if (event.key === '`'){
+        if (number.includes('-')){
+            mathP.textContent = mathP.textContent.slice(0, -number.length);
+            number = number.substring(1);
+            mathP.textContent += number;
+            totalP.textContent = operate(operator, lockedNum, (+number));
+        } else if (!number.includes('-')){
+            if(number > 0){
+                mathP.textContent = mathP.textContent.slice(0, -number.length);
+            }
+            number = '-' + number;
+            mathP.textContent += number;
+            if (number.length > 1){
+                totalP.textContent = operate(operator, lockedNum, (+number));
+            }
         }
     }
 }, false);
